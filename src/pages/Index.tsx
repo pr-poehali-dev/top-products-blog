@@ -230,10 +230,10 @@ const Index = () => {
           {categories.map((category) => (
             <Card
               key={category.name}
-              className={`hover-scale cursor-pointer border-border/50 backdrop-blur transition-all ${
+              className={`hover-scale cursor-pointer transition-all shadow-sm hover:shadow-md ${
                 selectedCategory === category.name
-                  ? 'bg-primary/20 border-primary'
-                  : 'bg-card/50'
+                  ? 'bg-primary/10 border-primary shadow-primary/20'
+                  : 'bg-white border-gray-200'
               }`}
               onClick={() => {
                 setSelectedCategory(category.name);
@@ -348,10 +348,10 @@ const Index = () => {
             {filteredProducts.map((product, index) => (
             <Card
               key={product.id}
-              className="group relative cursor-pointer border-border/50 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2"
+              className="group relative cursor-pointer bg-white border-gray-200 overflow-hidden transition-all duration-300 shadow-md hover:shadow-2xl hover:-translate-y-2"
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               <div className="relative">
                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
@@ -364,16 +364,16 @@ const Index = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="bg-background/80 backdrop-blur hover:bg-background/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="bg-white/90 backdrop-blur hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
                   >
-                    <Icon name="Heart" size={18} className="text-muted-foreground" />
+                    <Icon name="Heart" size={18} className="text-gray-600" />
                   </Button>
                 </div>
-                <div className="aspect-video bg-gradient-to-br from-muted/50 to-muted flex items-center justify-center overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent" />
                   <Icon name="ImageIcon" size={64} className="text-muted-foreground/30 relative z-10" />
                 </div>
               </div>
@@ -439,7 +439,7 @@ const Index = () => {
           </div>
         )}
 
-        <Card className="border-primary/50 bg-gradient-to-br from-primary/10 to-accent/10 backdrop-blur">
+        <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-gray-200 shadow-lg">
           <CardContent className="p-8 md:p-12">
             <div className="max-w-2xl mx-auto text-center">
               <Icon name="Mail" size={48} className="mx-auto mb-4 text-primary" />
@@ -466,7 +466,7 @@ const Index = () => {
         </Card>
       </section>
 
-      <footer className="border-t border-border/40 bg-card/30 backdrop-blur">
+      <footer className="border-t border-gray-200 bg-gray-50">
         <div className="container mx-auto px-4 py-12">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
