@@ -164,9 +164,9 @@ const ProductReview = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background dark flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Товар не найден</h1>
+          <h1 className="text-2xl font-bold mb-4 text-gray-900">Товар не найден</h1>
           <Button onClick={() => navigate('/')}>Вернуться на главную</Button>
         </div>
       </div>
@@ -185,8 +185,8 @@ const ProductReview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background dark">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
@@ -205,24 +205,24 @@ const ProductReview = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           <div>
-            <div className="aspect-square bg-muted rounded-lg flex items-center justify-center mb-4 sticky top-24">
-              <Icon name="ImageIcon" size={120} className="text-muted-foreground/30" />
+            <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center mb-4 sticky top-24 shadow-md">
+              <Icon name="ImageIcon" size={120} className="text-gray-300" />
             </div>
           </div>
 
           <div className="animate-fade-in">
-            <Badge variant="outline" className="mb-3">
+            <Badge variant="outline" className="mb-3 border-blue-500 text-blue-700 bg-blue-50">
               {product.category}
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{product.name}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">{product.name}</h1>
             
             <div className="flex items-center gap-3 mb-6">
               <div className="flex">{renderStars(product.rating)}</div>
-              <span className="text-lg font-semibold">{product.rating}</span>
-              <span className="text-muted-foreground">на основе 247 отзывов</span>
+              <span className="text-lg font-semibold text-gray-900">{product.rating}</span>
+              <span className="text-gray-600">на основе 247 отзывов</span>
             </div>
 
-            <p className="text-xl text-muted-foreground mb-6">{product.description}</p>
+            <p className="text-xl text-gray-700 mb-6">{product.description}</p>
 
             <div className="flex flex-wrap gap-2 mb-8">
               {product.features.map((feature) => (
@@ -252,21 +252,21 @@ const ProductReview = () => {
               </Button>
             </div>
 
-            <Card className="bg-card/50 backdrop-blur border-primary/30">
+            <Card className="bg-blue-50 border-blue-200 shadow-md">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <Icon name="Truck" size={24} className="text-primary" />
                   <div>
-                    <p className="font-semibold">Бесплатная доставка</p>
-                    <p className="text-sm text-muted-foreground">При заказе от ₽50,000</p>
+                    <p className="font-semibold text-gray-900">Бесплатная доставка</p>
+                    <p className="text-sm text-gray-600">При заказе от ₽50,000</p>
                   </div>
                 </div>
                 <Separator className="my-3" />
                 <div className="flex items-center gap-3">
                   <Icon name="Shield" size={24} className="text-primary" />
                   <div>
-                    <p className="font-semibold">Гарантия 2 года</p>
-                    <p className="text-sm text-muted-foreground">Официальная гарантия производителя</p>
+                    <p className="font-semibold text-gray-900">Гарантия 2 года</p>
+                    <p className="text-sm text-gray-600">Официальная гарантия производителя</p>
                   </div>
                 </div>
               </CardContent>
@@ -276,44 +276,44 @@ const ProductReview = () => {
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold mb-6">Детальный обзор</h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-900">Детальный обзор</h2>
             
-            <Card className="mb-8 bg-card/50 backdrop-blur">
+            <Card className="mb-8 bg-white border-gray-200 shadow-md">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4">О товаре</h3>
-                <p className="text-muted-foreground leading-relaxed">{product.fullDescription}</p>
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">О товаре</h3>
+                <p className="text-gray-700 leading-relaxed">{product.fullDescription}</p>
               </CardContent>
             </Card>
 
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5 border-green-500/30">
+              <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-300 shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
                     <Icon name="ThumbsUp" size={24} className="text-green-500" />
-                    <h3 className="text-xl font-semibold">Преимущества</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">Преимущества</h3>
                   </div>
                   <ul className="space-y-2">
                     {product.pros.map((pro) => (
                       <li key={pro} className="flex items-start gap-2">
                         <Icon name="Plus" size={16} className="text-green-500 mt-1 flex-shrink-0" />
-                        <span className="text-sm">{pro}</span>
+                        <span className="text-sm text-gray-800">{pro}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-orange-500/10 to-orange-500/5 border-orange-500/30">
+              <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-300 shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
                     <Icon name="ThumbsDown" size={24} className="text-orange-500" />
-                    <h3 className="text-xl font-semibold">Недостатки</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">Недостатки</h3>
                   </div>
                   <ul className="space-y-2">
                     {product.cons.map((con) => (
                       <li key={con} className="flex items-start gap-2">
                         <Icon name="Minus" size={16} className="text-orange-500 mt-1 flex-shrink-0" />
-                        <span className="text-sm">{con}</span>
+                        <span className="text-sm text-gray-800">{con}</span>
                       </li>
                     ))}
                   </ul>
@@ -321,14 +321,14 @@ const ProductReview = () => {
               </Card>
             </div>
 
-            <Card className="bg-card/50 backdrop-blur mb-8">
+            <Card className="bg-white border-gray-200 shadow-md mb-8">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-6">Наша оценка</h3>
+                <h3 className="text-xl font-semibold mb-6 text-gray-900">Наша оценка</h3>
                 <div className="space-y-4">
                   {Object.entries(product.ratings).map(([category, score]) => (
                     <div key={category}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium">{category}</span>
+                        <span className="font-medium text-gray-900">{category}</span>
                         <span className="text-primary font-semibold">{score}/100</span>
                       </div>
                       <Progress value={score} className="h-2" />
@@ -340,15 +340,15 @@ const ProductReview = () => {
           </div>
 
           <div>
-            <Card className="bg-card/50 backdrop-blur sticky top-24">
+            <Card className="bg-white border-gray-200 shadow-md sticky top-24">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4">Характеристики</h3>
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Характеристики</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specs).map(([key, value]) => (
                     <div key={key}>
                       <div className="flex justify-between items-start gap-2">
-                        <span className="text-sm text-muted-foreground">{key}</span>
-                        <span className="text-sm font-medium text-right">{value}</span>
+                        <span className="text-sm text-gray-600">{key}</span>
+                        <span className="text-sm font-medium text-right text-gray-900">{value}</span>
                       </div>
                       <Separator className="mt-3" />
                     </div>
@@ -360,14 +360,14 @@ const ProductReview = () => {
         </div>
 
         <div className="lg:col-span-3 mb-12">
-          <h2 className="text-3xl font-bold mb-6">Отзывы пользователей</h2>
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">Отзывы пользователей</h2>
           
-          <Card className="bg-card/50 backdrop-blur mb-6">
+          <Card className="bg-white border-gray-200 shadow-md mb-6">
             <CardContent className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Оставьте свой отзыв</h3>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900">Оставьте свой отзыв</h3>
               
               <div className="mb-4">
-                <p className="text-sm font-medium mb-2">Ваша оценка</p>
+                <p className="text-sm font-medium mb-2 text-gray-900">Ваша оценка</p>
                 <div className="flex gap-2">
                   {Array.from({ length: 5 }, (_, i) => (
                     <button
@@ -393,7 +393,7 @@ const ProductReview = () => {
                 placeholder="Поделитесь своим опытом использования этого товара..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="mb-4 min-h-[120px] bg-background/50"
+                className="mb-4 min-h-[120px] bg-gray-50"
               />
 
               <Button
@@ -427,11 +427,11 @@ const ProductReview = () => {
 
           <div className="space-y-4">
             {comments.map((commentItem) => (
-              <Card key={commentItem.id} className="bg-card/50 backdrop-blur animate-fade-in">
+              <Card key={commentItem.id} className="bg-white border-gray-200 shadow-md animate-fade-in">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarFallback className="bg-primary text-primary-foreground">
+                      <AvatarFallback className="bg-blue-500 text-white">
                         {commentItem.author.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
@@ -439,8 +439,8 @@ const ProductReview = () => {
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <div>
-                          <p className="font-semibold">{commentItem.author}</p>
-                          <p className="text-sm text-muted-foreground">{commentItem.date}</p>
+                          <p className="font-semibold text-gray-900">{commentItem.author}</p>
+                          <p className="text-sm text-gray-600">{commentItem.date}</p>
                         </div>
                         <div className="flex gap-1">
                           {Array.from({ length: 5 }, (_, i) => (
@@ -458,16 +458,16 @@ const ProductReview = () => {
                         </div>
                       </div>
                       
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                      <p className="text-gray-700 mb-4 leading-relaxed">
                         {commentItem.text}
                       </p>
                       
                       <div className="flex items-center gap-4">
-                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-blue-600">
                           <Icon name="ThumbsUp" size={16} className="mr-2" />
                           Полезно ({commentItem.helpful})
                         </Button>
-                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-blue-600">
                           <Icon name="MessageCircle" size={16} className="mr-2" />
                           Ответить
                         </Button>
