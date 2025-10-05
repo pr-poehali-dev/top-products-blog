@@ -1,14 +1,47 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
 
 const ProductReview = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [comment, setComment] = useState('');
+  const [userRating, setUserRating] = useState(0);
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      author: 'Алексей М.',
+      rating: 5,
+      date: '2 дня назад',
+      text: 'Отличный смартфон! Камера действительно на высоте, особенно ночная съемка. Титановый корпус придает премиальности.',
+      helpful: 24,
+    },
+    {
+      id: 2,
+      author: 'Мария К.',
+      rating: 4,
+      date: '5 дней назад',
+      text: 'Хорошее устройство, но цена кусается. Батарея держит весь день при активном использовании. Экран яркий и четкий.',
+      helpful: 18,
+    },
+    {
+      id: 3,
+      author: 'Дмитрий П.',
+      rating: 5,
+      date: '1 неделю назад',
+      text: 'Перешел с Android — не пожалел ни разу. Экосистема Apple работает безупречно. Производительность на максимуме.',
+      helpful: 31,
+    },
+  ]);
 
   const products = {
     '1': {
@@ -320,6 +353,127 @@ const ProductReview = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+
+        <div className="lg:col-span-3 mb-12">
+          <h2 className="text-3xl font-bold mb-6">Отзывы пользователей</h2>
+          
+          <Card className="bg-card/50 backdrop-blur mb-6">
+            <CardContent className="p-6">
+              <h3 className="text-xl font-semibold mb-4">Оставьте свой отзыв</h3>
+              
+              <div className="mb-4">
+                <p className="text-sm font-medium mb-2">Ваша оценка</p>
+                <div className="flex gap-2">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setUserRating(i + 1)}
+                      className="transition-transform hover:scale-110"
+                    >
+                      <Icon
+                        name="Star"
+                        size={28}
+                        className={
+                          i < userRating
+                            ? 'fill-yellow-400 text-yellow-400'
+                            : 'text-gray-600 hover:text-yellow-400'
+                        }
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <Textarea
+                placeholder="Поделитесь своим опытом использования этого товара..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="mb-4 min-h-[120px] bg-background/50"
+              />
+
+              <Button
+                onClick={() => {
+                  if (comment && userRating > 0) {
+                    const newComment = {
+                      id: comments.length + 1,
+                      author: 'Вы',
+                      rating: userRating,
+                      date: 'только что',
+                      text: comment,
+                      helpful: 0,
+                    };
+                    setComments([newComment, ...comments]);
+                    setComment('');
+                    setUserRating(0);
+                    toast({
+                      title: 'Отзыв опубликован!',
+                      description: 'Спасибо за ваше мнение',
+                    });
+                  }
+                }}
+                disabled={!comment || userRating === 0}
+                className="hover-scale"
+              >
+                <Icon name="Send" size={18} className="mr-2" />
+                Опубликовать отзыв
+              </Button>
+            </CardContent>
+          </Card>
+
+          <div className="space-y-4">
+            {comments.map((commentItem) => (
+              <Card key={commentItem.id} className="bg-card/50 backdrop-blur animate-fade-in">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="w-12 h-12">
+                      <AvatarFallback className="bg-primary text-primary-foreground">
+                        {commentItem.author.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <p className="font-semibold">{commentItem.author}</p>
+                          <p className="text-sm text-muted-foreground">{commentItem.date}</p>
+                        </div>
+                        <div className="flex gap-1">
+                          {Array.from({ length: 5 }, (_, i) => (
+                            <Icon
+                              key={i}
+                              name="Star"
+                              size={16}
+                              className={
+                                i < commentItem.rating
+                                  ? 'fill-yellow-400 text-yellow-400'
+                                  : 'text-gray-600'
+                              }
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                        {commentItem.text}
+                      </p>
+                      
+                      <div className="flex items-center gap-4">
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          <Icon name="ThumbsUp" size={16} className="mr-2" />
+                          Полезно ({commentItem.helpful})
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          <Icon name="MessageCircle" size={16} className="mr-2" />
+                          Ответить
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
