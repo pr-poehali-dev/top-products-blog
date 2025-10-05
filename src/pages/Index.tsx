@@ -137,8 +137,8 @@ const Index = () => {
     });
 
   return (
-    <div className="min-h-screen bg-background dark">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
@@ -193,8 +193,8 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="relative overflow-hidden border-b border-border/40">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
+      <section className="relative overflow-hidden border-b border-gray-200">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
         <div className="container relative mx-auto px-4 py-20">
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
