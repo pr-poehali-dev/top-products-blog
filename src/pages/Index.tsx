@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 const Index = () => {
   const [email, setEmail] = useState('');
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const navItems = [
     { name: 'Главная', href: '#' },
@@ -194,6 +196,7 @@ const Index = () => {
             <Card
               key={product.id}
               className="group hover-scale cursor-pointer border-border/50 bg-card/50 backdrop-blur overflow-hidden"
+              onClick={() => navigate(`/product/${product.id}`)}
             >
               <div className="relative">
                 <div className="absolute top-4 left-4 z-10">
@@ -230,7 +233,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-primary">{product.price}</span>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" onClick={() => navigate(`/product/${product.id}`)}>
                     Подробнее
                     <Icon name="ArrowRight" size={16} className="ml-2" />
                   </Button>
