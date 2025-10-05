@@ -204,7 +204,11 @@ const Index = () => {
               Экспертные обзоры и рейтинги новейших технологий
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="hover-scale">
+              <Button size="lg" className="hover-scale" onClick={() => navigate('/recommendations')}>
+                <Icon name="Sparkles" size={20} className="mr-2" />
+                Персональные рекомендации
+              </Button>
+              <Button size="lg" variant="outline" className="hover-scale">
                 <Icon name="TrendingUp" size={20} className="mr-2" />
                 Топ рейтинги
               </Button>

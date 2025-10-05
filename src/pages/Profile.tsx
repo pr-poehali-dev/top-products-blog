@@ -120,7 +120,7 @@ export default function Profile() {
                   <div className="flex-1 text-center md:text-left">
                     <h2 className="text-2xl font-bold mb-1">{profile.name}</h2>
                     <p className="text-muted-foreground mb-3">{profile.email}</p>
-                    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start items-center">
                       <Badge variant="secondary">
                         <Icon name="Package" size={14} className="mr-1" />
                         {myDevices.length} устройств
@@ -129,6 +129,14 @@ export default function Profile() {
                         <Icon name="Star" size={14} className="mr-1" />
                         Эксперт
                       </Badge>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate('/recommendations')}
+                      >
+                        <Icon name="Sparkles" size={14} className="mr-2" />
+                        Рекомендации
+                      </Button>
                     </div>
                   </div>
                 </div>
