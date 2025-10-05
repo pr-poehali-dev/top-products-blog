@@ -336,47 +336,89 @@ const Index = () => {
             {filteredProducts.map((product, index) => (
             <Card
               key={product.id}
-              className="group hover-scale cursor-pointer border-border/50 bg-card/50 backdrop-blur overflow-hidden"
+              className="group relative cursor-pointer border-border/50 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2"
               onClick={() => navigate(`/product/${product.id}`)}
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
               <div className="relative">
-                <div className="absolute top-4 left-4 z-10">
-                  <Badge className="bg-primary text-primary-foreground font-bold">
+                <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                  <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground font-bold shadow-lg backdrop-blur">
+                    <Icon name="Trophy" size={14} className="mr-1" />
                     #{index + 1}
                   </Badge>
                 </div>
-                <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
-                  <Icon name="ImageIcon" size={64} className="text-muted-foreground/30" />
+                <div className="absolute top-4 right-4 z-10">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="bg-background/80 backdrop-blur hover:bg-background/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Icon name="Heart" size={18} className="text-muted-foreground" />
+                  </Button>
+                </div>
+                <div className="aspect-video bg-gradient-to-br from-muted/50 to-muted flex items-center justify-center overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+                  <Icon name="ImageIcon" size={64} className="text-muted-foreground/30 relative z-10" />
                 </div>
               </div>
-              <CardHeader>
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <Badge variant="outline" className="mb-2">
-                      {product.category}
-                    </Badge>
-                    <CardTitle className="text-xl mb-2">{product.name}</CardTitle>
+              
+              <CardHeader className="relative">
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge variant="outline" className="border-primary/30 text-primary bg-primary/10">
+                    <Icon name={
+                      product.category === 'Смартфоны' ? 'Smartphone' :
+                      product.category === 'Ноутбуки' ? 'Laptop' :
+                      product.category === 'Наушники' ? 'Headphones' :
+                      product.category === 'Умные часы' ? 'Watch' :
+                      product.category === 'Камеры' ? 'Camera' : 'Cpu'
+                    } size={12} className="mr-1" />
+                    {product.category}
+                  </Badge>
+                  <div className="flex items-center gap-1 ml-auto">
+                    {renderStars(product.rating)}
+                    <span className="text-sm font-bold ml-1 text-yellow-400">{product.rating}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="flex">{renderStars(product.rating)}</div>
-                  <span className="text-sm font-semibold">{product.rating}</span>
-                </div>
-                <CardDescription className="line-clamp-2">{product.description}</CardDescription>
+                
+                <CardTitle className="text-xl mb-3 leading-tight group-hover:text-primary transition-colors">
+                  {product.name}
+                </CardTitle>
+                
+                <CardDescription className="line-clamp-2 text-sm leading-relaxed">
+                  {product.description}
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
+              
+              <CardContent className="relative">
+                <div className="flex flex-wrap gap-1.5 mb-4">
                   {product.features.map((feature) => (
-                    <Badge key={feature} variant="secondary" className="text-xs">
+                    <Badge key={feature} variant="secondary" className="text-xs px-2 py-0.5 bg-secondary/50">
                       {feature}
                     </Badge>
                   ))}
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">{product.price}</span>
-                  <Button size="sm" variant="ghost" onClick={() => navigate(`/product/${product.id}`)}>
+                
+                <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-1">Цена</p>
+                    <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                      {product.price}
+                    </span>
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="bg-primary hover:bg-primary/90 group-hover:shadow-lg group-hover:shadow-primary/50 transition-all"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/product/${product.id}`);
+                    }}
+                  >
                     Подробнее
-                    <Icon name="ArrowRight" size={16} className="ml-2" />
+                    <Icon name="ArrowRight" size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </div>
               </CardContent>
