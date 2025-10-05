@@ -16,11 +16,11 @@ const Index = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: 'Главная', href: '#' },
+    { name: 'Главная', href: '/' },
     { name: 'Рейтинги', href: '#ratings' },
     { name: 'Категории', href: '#categories' },
     { name: 'Обзоры', href: '#reviews' },
-    { name: 'Блог', href: '#blog' },
+    { name: 'Блог', href: '/blog' },
     { name: 'О проекте', href: '#about' },
     { name: 'Контакты', href: '#contact' },
   ];
