@@ -9,6 +9,8 @@ import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [email, setEmail] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Все');
+  const [sortBy, setSortBy] = useState('rating');
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -116,6 +118,15 @@ const Index = () => {
     ));
   };
 
+  const filteredProducts = topProducts
+    .filter((product) => selectedCategory === 'Все' || product.category === selectedCategory)
+    .sort((a, b) => {
+      if (sortBy === 'rating') return b.rating - a.rating;
+      if (sortBy === 'price-asc') return parseInt(a.price.replace(/[^0-9]/g, '')) - parseInt(b.price.replace(/[^0-9]/g, ''));
+      if (sortBy === 'price-desc') return parseInt(b.price.replace(/[^0-9]/g, '')) - parseInt(a.price.replace(/[^0-9]/g, ''));
+      return 0;
+    });
+
   return (
     <div className="min-h-screen bg-background dark">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -176,7 +187,15 @@ const Index = () => {
           {categories.map((category) => (
             <Card
               key={category.name}
-              className="hover-scale cursor-pointer border-border/50 bg-card/50 backdrop-blur"
+              className={`hover-scale cursor-pointer border-border/50 backdrop-blur transition-all ${
+                selectedCategory === category.name
+                  ? 'bg-primary/20 border-primary'
+                  : 'bg-card/50'
+              }`}
+              onClick={() => {
+                setSelectedCategory(category.name);
+                document.getElementById('ratings')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               <CardContent className="p-6 text-center">
                 <Icon name={category.icon as any} size={40} className="mx-auto mb-3 text-primary" />
@@ -187,12 +206,51 @@ const Index = () => {
           ))}
         </div>
 
-        <div className="mb-12" id="ratings">
+        <div className="mb-8" id="ratings">
           <h2 className="text-3xl font-bold mb-3">Топ гаджетов этого месяца</h2>
           <p className="text-muted-foreground">Лучшие устройства по версии наших экспертов</p>
         </div>
+
+        <div className="flex flex-col md:flex-row gap-4 mb-8">
+          <div className="flex-1">
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={selectedCategory === 'Все' ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory('Все')}
+                className="hover-scale"
+              >
+                Все товары
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category.name}
+                  variant={selectedCategory === category.name ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory(category.name)}
+                  className="hover-scale"
+                >
+                  <Icon name={category.icon as any} size={16} className="mr-2" />
+                  {category.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Icon name="ArrowUpDown" size={20} className="text-muted-foreground" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-4 py-2 rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="rating">По рейтингу</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+            </select>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {topProducts.map((product, index) => (
+          {filteredProducts.map((product, index) => (
             <Card
               key={product.id}
               className="group hover-scale cursor-pointer border-border/50 bg-card/50 backdrop-blur overflow-hidden"
