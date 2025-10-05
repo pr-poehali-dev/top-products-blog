@@ -179,20 +179,11 @@ const Index = () => {
               </div>
               <Button
                 variant="ghost"
-                size="sm"
-                onClick={() => navigate('/login')}
-                className="hidden sm:flex"
+                size="icon"
+                onClick={() => navigate('/profile')}
+                className="hidden sm:flex rounded-full"
               >
-                <Icon name="LogIn" size={18} className="mr-2" />
-                Вход
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => navigate('/register')}
-                className="hidden sm:flex"
-              >
-                <Icon name="UserPlus" size={18} className="mr-2" />
-                Регистрация
+                <Icon name="User" size={20} />
               </Button>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Icon name="Menu" size={24} />
