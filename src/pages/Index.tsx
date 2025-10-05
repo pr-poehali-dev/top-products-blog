@@ -11,6 +11,7 @@ const Index = () => {
   const [email, setEmail] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Все');
   const [sortBy, setSortBy] = useState('rating');
+  const [searchQuery, setSearchQuery] = useState('');
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -119,7 +120,15 @@ const Index = () => {
   };
 
   const filteredProducts = topProducts
-    .filter((product) => selectedCategory === 'Все' || product.category === selectedCategory)
+    .filter((product) => {
+      const matchesCategory = selectedCategory === 'Все' || product.category === selectedCategory;
+      const matchesSearch = searchQuery === '' || 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.features.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesCategory && matchesSearch;
+    })
     .sort((a, b) => {
       if (sortBy === 'rating') return b.rating - a.rating;
       if (sortBy === 'price-asc') return parseInt(a.price.replace(/[^0-9]/g, '')) - parseInt(b.price.replace(/[^0-9]/g, ''));
@@ -130,27 +139,49 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background dark">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <Icon name="Cpu" size={32} className="text-primary" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              TechTop10
-            </span>
+        <div className="container mx-auto px-4">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Icon name="Cpu" size={32} className="text-primary" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                TechTop10
+              </span>
+            </div>
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </nav>
+            <div className="flex items-center gap-3">
+              <div className="relative hidden lg:block">
+                <Icon name="Search" size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Поиск гаджетов..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-64 pl-10 bg-background/50"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    <Icon name="X" size={16} />
+                  </button>
+                )}
+              </div>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Icon name="Menu" size={24} />
+              </Button>
+            </div>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Icon name="Menu" size={24} />
-          </Button>
         </div>
       </header>
 
@@ -211,46 +242,98 @@ const Index = () => {
           <p className="text-muted-foreground">Лучшие устройства по версии наших экспертов</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="flex-1">
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant={selectedCategory === 'Все' ? 'default' : 'outline'}
-                onClick={() => setSelectedCategory('Все')}
-                className="hover-scale"
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="relative lg:hidden">
+            <Icon name="Search" size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Поиск гаджетов..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 bg-background/50"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               >
-                Все товары
-              </Button>
-              {categories.map((category) => (
+                <Icon name="X" size={16} />
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="flex flex-wrap gap-2">
                 <Button
-                  key={category.name}
-                  variant={selectedCategory === category.name ? 'default' : 'outline'}
-                  onClick={() => setSelectedCategory(category.name)}
+                  variant={selectedCategory === 'Все' ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory('Все')}
                   className="hover-scale"
                 >
-                  <Icon name={category.icon as any} size={16} className="mr-2" />
-                  {category.name}
+                  Все товары
                 </Button>
-              ))}
+                {categories.map((category) => (
+                  <Button
+                    key={category.name}
+                    variant={selectedCategory === category.name ? 'default' : 'outline'}
+                    onClick={() => setSelectedCategory(category.name)}
+                    className="hover-scale"
+                  >
+                    <Icon name={category.icon as any} size={16} className="mr-2" />
+                    {category.name}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <Icon name="ArrowUpDown" size={20} className="text-muted-foreground" />
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="rating">По рейтингу</option>
-              <option value="price-asc">Сначала дешевле</option>
-              <option value="price-desc">Сначала дороже</option>
-            </select>
+            
+            <div className="flex items-center gap-2">
+              <Icon name="ArrowUpDown" size={20} className="text-muted-foreground" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="rating">По рейтингу</option>
+                <option value="price-asc">Сначала дешевле</option>
+                <option value="price-desc">Сначала дороже</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredProducts.map((product, index) => (
+        {searchQuery && (
+          <div className="mb-4 p-4 bg-primary/10 border border-primary/30 rounded-lg">
+            <p className="text-sm">
+              Найдено товаров: <span className="font-bold text-primary">{filteredProducts.length}</span>
+              {searchQuery && ` по запросу "${searchQuery}"`}
+            </p>
+          </div>
+        )}
+
+        {filteredProducts.length === 0 ? (
+          <Card className="mb-16 bg-card/50 backdrop-blur">
+            <CardContent className="p-12 text-center">
+              <Icon name="SearchX" size={64} className="mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-2xl font-bold mb-2">Ничего не найдено</h3>
+              <p className="text-muted-foreground mb-4">
+                {searchQuery 
+                  ? `По запросу "${searchQuery}" не найдено товаров`
+                  : 'В данной категории товары отсутствуют'}
+              </p>
+              <Button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('Все');
+                }}
+                variant="outline"
+              >
+                Сбросить фильтры
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {filteredProducts.map((product, index) => (
             <Card
               key={product.id}
               className="group hover-scale cursor-pointer border-border/50 bg-card/50 backdrop-blur overflow-hidden"
@@ -298,8 +381,9 @@ const Index = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <Card className="border-primary/50 bg-gradient-to-br from-primary/10 to-accent/10 backdrop-blur">
           <CardContent className="p-8 md:p-12">
