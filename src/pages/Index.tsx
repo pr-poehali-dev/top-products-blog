@@ -208,13 +208,13 @@ const Index = () => {
                 <Icon name="Sparkles" size={20} className="mr-2" />
                 Персональные рекомендации
               </Button>
+              <Button size="lg" variant="outline" className="hover-scale" onClick={() => navigate('/compare')}>
+                <Icon name="GitCompare" size={20} className="mr-2" />
+                Сравнить гаджеты
+              </Button>
               <Button size="lg" variant="outline" className="hover-scale">
                 <Icon name="TrendingUp" size={20} className="mr-2" />
                 Топ рейтинги
-              </Button>
-              <Button size="lg" variant="outline" className="hover-scale">
-                <Icon name="BookOpen" size={20} className="mr-2" />
-                Читать обзоры
               </Button>
             </div>
           </div>

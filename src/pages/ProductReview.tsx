@@ -241,6 +241,9 @@ const ProductReview = () => {
                 <Icon name="ShoppingCart" size={20} className="mr-2" />
                 Купить
               </Button>
+              <Button size="lg" variant="outline" className="hover-scale" onClick={() => navigate('/compare')}>
+                <Icon name="GitCompare" size={20} />
+              </Button>
               <Button size="lg" variant="outline" className="hover-scale">
                 <Icon name="Heart" size={20} />
               </Button>
