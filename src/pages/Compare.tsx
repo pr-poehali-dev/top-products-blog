@@ -182,21 +182,21 @@ export default function Compare() {
         key={i}
         name="Star"
         size={14}
-        className={i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground/30'}
+        className={i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
       />
     ));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <Icon name="Zap" size={20} className="text-primary-foreground" />
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+              <Icon name="Zap" size={20} className="text-white" />
             </div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               TechReview
             </h1>
           </Link>
@@ -218,11 +218,11 @@ export default function Compare() {
           <div className="mb-8">
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-                  <Icon name="GitCompare" size={32} className="text-primary" />
+                <h1 className="text-3xl font-bold mb-2 flex items-center gap-3 text-gray-900">
+                  <Icon name="GitCompare" size={32} className="text-blue-500" />
                   Сравнение гаджетов
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-gray-600">
                   Сравните характеристики и выберите лучший вариант
                 </p>
               </div>
@@ -234,22 +234,22 @@ export default function Compare() {
 
             {/* Add Product Modal */}
             {showAddModal && (
-              <Card className="border-primary/20 bg-card/95 backdrop-blur mb-6">
+              <Card className="border-blue-200 bg-white shadow-lg mb-6">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>Добавить товар для сравнения</CardTitle>
+                    <CardTitle className="text-gray-900">Добавить товар для сравнения</CardTitle>
                     <Button variant="ghost" size="icon" onClick={() => setShowAddModal(false)}>
                       <Icon name="X" size={18} />
                     </Button>
                   </div>
-                  <CardDescription>
+                  <CardDescription className="text-gray-600">
                     Выберите товар из каталога (максимум 4 товара)
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="relative">
-                      <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                       <Input
                         placeholder="Поиск товаров..."
                         value={searchQuery}
@@ -262,13 +262,13 @@ export default function Compare() {
                         <button
                           key={product.id}
                           onClick={() => handleAddProduct(product.id)}
-                          className="text-left p-3 bg-muted/30 border border-border/50 rounded-lg hover:bg-muted/50 transition-all"
+                          className="text-left p-3 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-all"
                         >
                           <div className="flex items-start justify-between gap-2 mb-2">
-                            <h4 className="font-medium text-sm">{product.name}</h4>
-                            <Icon name="Plus" size={16} className="text-primary flex-shrink-0" />
+                            <h4 className="font-medium text-sm text-gray-900">{product.name}</h4>
+                            <Icon name="Plus" size={16} className="text-blue-500 flex-shrink-0" />
                           </div>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs border-gray-300 text-gray-700">
                             {product.category}
                           </Badge>
                         </button>
@@ -284,12 +284,12 @@ export default function Compare() {
               <Card className="border-border/50 bg-card/50 backdrop-blur">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Icon name="GitCompare" size={20} className="text-primary" />
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Icon name="GitCompare" size={20} className="text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">{compareList.length}</p>
-                      <p className="text-xs text-muted-foreground">Товаров</p>
+                      <p className="text-2xl font-bold text-gray-900">{compareList.length}</p>
+                      <p className="text-xs text-gray-600">Товаров</p>
                     </div>
                   </div>
                 </CardContent>
@@ -297,12 +297,12 @@ export default function Compare() {
               <Card className="border-border/50 bg-card/50 backdrop-blur">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
-                      <Icon name="ListChecks" size={20} className="text-accent" />
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Icon name="ListChecks" size={20} className="text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">{allSpecs.length}</p>
-                      <p className="text-xs text-muted-foreground">Параметров</p>
+                      <p className="text-2xl font-bold text-gray-900">{allSpecs.length}</p>
+                      <p className="text-xs text-gray-600">Параметров</p>
                     </div>
                   </div>
                 </CardContent>
@@ -314,10 +314,10 @@ export default function Compare() {
                       <Icon name="TrendingUp" size={20} className="text-green-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">
+                      <p className="text-2xl font-bold text-gray-900">
                         {Math.max(...compareProducts.map((p) => p.rating))}
                       </p>
-                      <p className="text-xs text-muted-foreground">Лучший рейтинг</p>
+                      <p className="text-xs text-gray-600">Лучший рейтинг</p>
                     </div>
                   </div>
                 </CardContent>
@@ -329,10 +329,10 @@ export default function Compare() {
                       <Icon name="DollarSign" size={20} className="text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold">
+                      <p className="text-2xl font-bold text-gray-900">
                         {Math.min(...compareProducts.map((p) => parseInt(p.price.replace(/\s/g, ''))))}₽
                       </p>
-                      <p className="text-xs text-muted-foreground">Минимальная цена</p>
+                      <p className="text-xs text-gray-600">Минимальная цена</p>
                     </div>
                   </div>
                 </CardContent>
@@ -347,7 +347,7 @@ export default function Compare() {
               <div className="grid gap-4 mb-6" style={{ gridTemplateColumns: `200px repeat(${compareList.length}, 1fr)` }}>
                 <div className="h-full" />
                 {compareProducts.map((product) => (
-                  <Card key={product.id} className="border-border/50 bg-card/50 backdrop-blur relative overflow-hidden">
+                  <Card key={product.id} className="border-gray-200 bg-white shadow-md relative overflow-hidden">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -357,38 +357,38 @@ export default function Compare() {
                       <Icon name="X" size={14} />
                     </Button>
                     <CardContent className="p-4">
-                      <div className="aspect-video bg-gradient-to-br from-muted/50 to-muted rounded-lg flex items-center justify-center mb-3">
-                        <Icon name="ImageIcon" size={48} className="text-muted-foreground/30" />
+                      <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center mb-3">
+                        <Icon name="ImageIcon" size={48} className="text-gray-300" />
                       </div>
-                      <h3 className="font-bold mb-1 pr-6">{product.name}</h3>
-                      <Badge variant="outline" className="mb-2 text-xs">
+                      <h3 className="font-bold mb-1 pr-6 text-gray-900">{product.name}</h3>
+                      <Badge variant="outline" className="mb-2 text-xs border-gray-300 text-gray-700">
                         {product.category}
                       </Badge>
                       <div className="flex items-center gap-1 mb-2">
                         {renderStars(product.rating)}
-                        <span className="text-sm font-bold ml-1">{product.rating}</span>
+                        <span className="text-sm font-bold ml-1 text-gray-900">{product.rating}</span>
                       </div>
-                      <p className="text-2xl font-bold text-primary">₽{product.price}</p>
+                      <p className="text-2xl font-bold text-blue-600">₽{product.price}</p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
               {/* Specifications */}
-              <Card className="border-border/50 bg-card/50 backdrop-blur mb-6">
+              <Card className="border-gray-200 bg-white shadow-md mb-6">
                 <CardHeader>
-                  <CardTitle>Характеристики</CardTitle>
+                  <CardTitle className="text-gray-900">Характеристики</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                   {allSpecs.map((spec, index) => (
                     <div key={spec}>
                       {index > 0 && <Separator />}
                       <div className="grid gap-4 p-4" style={{ gridTemplateColumns: `200px repeat(${compareList.length}, 1fr)` }}>
-                        <div className="font-medium capitalize text-sm text-muted-foreground">
+                        <div className="font-medium capitalize text-sm text-gray-600">
                           {spec}
                         </div>
                         {compareProducts.map((product) => (
-                          <div key={product.id} className="text-sm font-medium">
+                          <div key={product.id} className="text-sm font-medium text-gray-900">
                             {product.specs[spec as keyof typeof product.specs] || '—'}
                           </div>
                         ))}
@@ -400,17 +400,17 @@ export default function Compare() {
 
               {/* Pros & Cons */}
               <div className="grid gap-4 mb-6" style={{ gridTemplateColumns: `200px repeat(${compareList.length}, 1fr)` }}>
-                <div className="font-bold text-lg flex items-center">
+                <div className="font-bold text-lg flex items-center text-gray-900">
                   Преимущества
                 </div>
                 {compareProducts.map((product) => (
-                  <Card key={product.id} className="border-green-500/20 bg-green-500/5 backdrop-blur">
+                  <Card key={product.id} className="border-green-300 bg-green-50 shadow-md">
                     <CardContent className="p-4">
                       <ul className="space-y-2">
                         {product.pros.map((pro, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm">
                             <Icon name="CheckCircle2" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
-                            <span>{pro}</span>
+                            <span className="text-gray-800">{pro}</span>
                           </li>
                         ))}
                       </ul>
@@ -420,17 +420,17 @@ export default function Compare() {
               </div>
 
               <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${compareList.length}, 1fr)` }}>
-                <div className="font-bold text-lg flex items-center">
+                <div className="font-bold text-lg flex items-center text-gray-900">
                   Недостатки
                 </div>
                 {compareProducts.map((product) => (
-                  <Card key={product.id} className="border-red-500/20 bg-red-500/5 backdrop-blur">
+                  <Card key={product.id} className="border-red-300 bg-red-50 shadow-md">
                     <CardContent className="p-4">
                       <ul className="space-y-2">
                         {product.cons.map((con, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm">
                             <Icon name="XCircle" size={16} className="text-red-600 mt-0.5 flex-shrink-0" />
-                            <span>{con}</span>
+                            <span className="text-gray-800">{con}</span>
                           </li>
                         ))}
                       </ul>
